@@ -2,14 +2,12 @@ import { Injectable } from "@nestjs/common";
 import { Prisma, Product } from "@prisma/client";
 import AppError from "@shared/errors/AppError";
 import prisma from "@utils/PrismaClient";
-
 interface IRequest {
-  uid?: string ;
+  uid?: string;
   name: string;
   price: number;
   quantity: number;
 }
-
 @Injectable()
 export class ProductRepository {
 
@@ -27,7 +25,7 @@ export class ProductRepository {
       data: {
         name: data.name,
         price: data.price,
-        quantity: data.quantity
+        quantity: data.quantity,
       }
     })
     if (newProduct.name == '') {

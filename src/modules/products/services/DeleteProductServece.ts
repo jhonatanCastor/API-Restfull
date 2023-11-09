@@ -4,7 +4,6 @@ import { ProductRepository } from "../repositories/ProductRepository";
 interface IRequest{
   uid: string
 }
-
 export class DeleteProductService {
   public async execute({uid}: IRequest): Promise<void> {
     const productsRepository = new ProductRepository;

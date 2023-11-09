@@ -5,11 +5,13 @@ import cors from 'cors';
 import { errors } from 'celebrate';
 import routes from '../routes'
 import AppError from '../errors/AppError';
+import uploandsConfig from '@config/uploands';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/files', express.static(uploandsConfig.directory))
 
 app.use(routes);
 

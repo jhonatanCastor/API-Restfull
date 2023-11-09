@@ -13,10 +13,11 @@ datasource db {
 model User {
   uid String @id @unique @default(uuid())
   email String @unique
-  name String?
+  name String
+  password String
+  avatar String? 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  vendas Vendas[]
 }
 
 model Vendas {
@@ -27,8 +28,6 @@ model Vendas {
   description String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  author User @relation(fields: [authorId], references: [uid])
-  authorId String
 }
 
 model Shopping {
