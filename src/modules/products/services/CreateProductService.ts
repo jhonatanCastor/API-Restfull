@@ -1,12 +1,10 @@
 import AppError from "@shared/errors/AppError";
 import { ProductRepository } from "../repositories/ProductRepository";
-
 interface IRequest {
   name: string;
   price: number;
   quantity: number;
 }
-
 export class CreateProductService {
   async execute({ name, price, quantity }: IRequest) {
     const productsRepository = new ProductRepository;
