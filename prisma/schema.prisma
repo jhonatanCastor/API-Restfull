@@ -18,6 +18,16 @@ model User {
   avatar String? 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+  tokens    User_Tokens[]
+}
+model User_Tokens {
+  uid String @id @unique @default(uuid())
+  token String @unique @default(uuid())
+  expiresAt DateTime?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  author User @relation(fields: [user_uid], references: [uid], onUpdate: NoAction)
+  user_uid String @default(uuid())
 }
 
 model Vendas {
