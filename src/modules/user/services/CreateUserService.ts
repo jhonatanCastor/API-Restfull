@@ -1,6 +1,6 @@
-import AppError from "@shared/errors/AppError";
-import { UserRepository } from "../repositoryUser/UserRepository";
+import { UserRepository } from "@modules/user/repository/UserRepository";
 import { hash } from "bcryptjs";
+import AppError from "@shared/errors/AppError";
 
 interface IRequest {
   email: string;
@@ -17,7 +17,7 @@ export class CreateUser {
     if (userExist) {
       throw new AppError("E-mail already in use", 400);
     }
-    
+
     // Criptografia de senha usando a biblioteca: "bcryptjs"
     const hashedPassword = await hash(password, 8);
 

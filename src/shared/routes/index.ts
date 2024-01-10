@@ -1,5 +1,5 @@
-import userAvatar from "@modules/Avatar/router/avatar.routes";
-import sessionRouter from "@modules/Session/routers/session.routes";
+import userAvatar from "@modules/avatar/router/avatar.routes";
+import sessionRouter from "@modules/session/routers/session.routes";
 import productRouter from "@modules/products/routes/product.routes";
 import userRouter from "@modules/user/routes/user.routes";
 import { Router } from "express";

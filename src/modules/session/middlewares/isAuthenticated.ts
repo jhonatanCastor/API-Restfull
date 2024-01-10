@@ -11,7 +11,7 @@ interface ITokenPayload {
 
 export default function isAuthenticated(
   request: Request,
-  respose: Response,
+  response: Response,
   next: NextFunction
 ): void {
 

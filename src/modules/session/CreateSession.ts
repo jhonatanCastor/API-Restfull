@@ -1,4 +1,4 @@
-import { UserRepository } from "@modules/user/repositoryUser/UserRepository";
+import { UserRepository } from "@modules/user/repository/UserRepository";
 import { User } from "@prisma/client";
 import AppError from "@shared/errors/AppError";
 import { compare } from "bcryptjs";
@@ -16,19 +16,19 @@ interface IResponse {
 }
 
 export class CreateSession {
-  async execute({email, password} : IRequest): Promise<IResponse> {
+  async execute({ email, password }: IRequest): Promise<IResponse> {
 
     const userRepository = new UserRepository();
     const user = await userRepository.findByEmail(email);
 
-    if(!user) {
+    if (!user) {
       throw new AppError("Incorrect email or password", 401);
     }
 
-     // O metodo compare do bcrypt vai comparar a senha enviada com a existente no banco
+    // O metodo compare do bcrypt vai comparar a senha enviada com a existente no banco
     const passwordConfirm = await compare(password, user.password)
 
-    if(!passwordConfirm){
+    if (!passwordConfirm) {
       throw new AppError("Incorrect email or password", 401);
     }
 
@@ -37,7 +37,7 @@ export class CreateSession {
       subject: user.uid,
       expiresIn: authConfig.jwt.expiryTime,
     })
- 
+
     return {
       user,
       token

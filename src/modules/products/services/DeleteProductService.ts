@@ -1,16 +1,16 @@
 import AppError from "@shared/errors/AppError";
-import { ProductRepository } from "../repositories/ProductRepository";
+import { ProductRepository } from "@modules/products/repositories/ProductRepository";
 
-interface IRequest{
+interface IRequest {
   uid: string
 }
 export class DeleteProductService {
-  public async execute({uid}: IRequest): Promise<void> {
+  public async execute({ uid }: IRequest): Promise<void> {
     const productsRepository = new ProductRepository;
 
     const product = await productsRepository.findByUid(uid);
 
-    if(!product) {
+    if (!product) {
       throw new AppError("This user does not have any product");
     }
 

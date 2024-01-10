@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError";
-import { ProductRepository } from "../repositories/ProductRepository";
+import { ProductRepository } from "@modules/products/repositories/ProductRepository";
 interface IRequest {
   name: string;
   price: number;
