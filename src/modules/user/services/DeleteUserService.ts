@@ -1,19 +1,19 @@
 import AppError from "@shared/errors/AppError";
-import { UserRepository } from "../repositoryUser/UserRepository";
+import { UserRepository } from "@modules/user/repository/UserRepository";
 
-interface IRequest{
+interface IRequest {
   uid: string
 }
 
 export class DeleteUser {
-  public async execute({uid}: IRequest): Promise<void> {
+  public async execute({ uid }: IRequest): Promise<void> {
     const userRepository = new UserRepository;
 
     const user = await userRepository.findByUid(uid)
 
-    if(!user) {
+    if (!user) {
       throw new AppError("This user does not exists");
     }
-    await userRepository.delete(user.uid) 
+    await userRepository.delete(user.uid)
   }
 }

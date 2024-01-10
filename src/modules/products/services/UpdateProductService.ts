@@ -1,14 +1,12 @@
 import AppError from "@shared/errors/AppError";
-import { ProductRepository } from "../repositories/ProductRepository";
+import { ProductRepository } from "@modules/products/repositories/ProductRepository";
 import { Product } from "@prisma/client";
-
 interface IRequest {
   uid: string;
   name: string;
   price: number;
   quantity: number;
 }
-
 export class UpdateProductService {
   public async execute(data: IRequest): Promise<Product> {
     const values = { ...data }
@@ -21,7 +19,7 @@ export class UpdateProductService {
     }
 
     const productExist = await productsRepository.findByProduct(values.name);
-    if (productExist && productExist.name !== data.name){
+    if (productExist && productExist.name !== data.name) {
       throw new AppError('A product with this name already exists');
     }
 
