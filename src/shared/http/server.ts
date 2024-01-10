@@ -6,6 +6,7 @@ import { errors } from 'celebrate';
 import routes from '../routes'
 import AppError from '../errors/AppError';
 import uploandsConfig from '@config/uploands';
+import Logger from '@utils/wisntonLogger';
 
 const app = express();
 
@@ -31,5 +32,5 @@ app.use((error: Error, request: Request, response: Response, next: NextFunction)
 });
 
 app.listen(3333, () => {
-  console.log('Server running on port 3333');
+  Logger.info(`Server running on port ${process.env.PORT}`);
 });
