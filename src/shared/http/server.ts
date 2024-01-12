@@ -7,12 +7,16 @@ import routes from '../routes'
 import AppError from '../errors/AppError';
 import uploandsConfig from '@config/uploands';
 import Logger from '@utils/wisntonLogger';
+import swaggerUI from 'swagger-ui-express'
+import swaggerDoc from '@/swagger.json';
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploandsConfig.directory))
+app.use('/files', express.static(uploandsConfig.directory));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 app.use(routes);
 
@@ -33,4 +37,5 @@ app.use((error: Error, request: Request, response: Response, next: NextFunction)
 
 app.listen(3333, () => {
   Logger.info(`Server running on port ${process.env.PORT}`);
+  Logger.info(`Swagger running on port http://localhost:${process.env.PORT}/api-docs/`);
 });
