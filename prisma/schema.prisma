@@ -27,7 +27,7 @@ model User_Tokens {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   author User @relation(fields: [user_uid], references: [uid], onUpdate: NoAction)
-  user_uid String @default(uuid())
+  user_uid String 
 }
 
 model Vendas {
@@ -59,3 +59,7 @@ model Product {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
+
+
+
+
