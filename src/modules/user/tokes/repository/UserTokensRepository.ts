@@ -3,18 +3,20 @@ import prisma from "@/utils/PrismaClient";
 import { Prisma, User_Tokens } from "@prisma/client";
 
 interface IRequest {
+  uid: string;
+  token: string;
+  expiresAt: Date | null;
   user_uid: string;
 }
-
 export class UserTokes {
 
-  public async generate(data: IRequest): Promise<User_Tokens | undefined> {
-    const useToken = await prisma.user_Tokens.create({
-     data: {
-      ...data,
-     }
+  public async generate(user_uid: string): Promise<User_Tokens> {
+
+    const userToken = prisma.user_Tokens.create({
+      data: { user_uid },
     });
-    return useToken
+
+    return userToken;
   }
 
   async save(token: Prisma.User_TokensUpdateInput): Promise<User_Tokens | undefined> {
@@ -32,10 +34,14 @@ export class UserTokes {
     return updatedUser;
   }
 
-  public async findByToken(token: string) {
-    const userToken = await prisma.user_Tokens.findFirst({
-      where: { token },
+  async findByToken(token: string): Promise<User_Tokens | undefined> {
+
+    const userToken = await prisma.user_Tokens.findUnique({
+      where: {
+        token,
+      },
     });
-    return userToken;
+
+    return userToken as User_Tokens;
   }
 }
