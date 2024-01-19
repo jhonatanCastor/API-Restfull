@@ -1,3 +1,4 @@
+import Logger from "@/utils/wisntonLogger";
 import { UserRepository } from "@modules/user/repository/UserRepository";
 import { UserTokes } from "@modules/user/tokes/repository/UserTokensRepository";
 import { hash } from "bcryptjs";
@@ -31,6 +32,12 @@ export class ResetPasswordService {
    if(isAfter(Date.now(), compareDate)){
     throw new Error("Token expired!")
    };
+   Logger.info(user.password);
+   
    user.password = await hash(password, 8);
+
+   Logger.info(user.password);
+
+   await userRepository.save(user);
   }
 }
