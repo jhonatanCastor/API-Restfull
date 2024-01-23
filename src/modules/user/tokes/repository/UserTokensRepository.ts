@@ -1,4 +1,3 @@
-import AppError from "@/shared/errors/AppError";
 import prisma from "@/utils/PrismaClient";
 import { User_Tokens } from "@prisma/client";
 
@@ -6,7 +5,7 @@ export class UserTokes {
 
   public async generate(user_uid: string): Promise<User_Tokens> {
 
-    const userToken = prisma.user_Tokens.create({
+    const userToken = await prisma.user_Tokens.create({
       data: { user_uid },
     });
 
