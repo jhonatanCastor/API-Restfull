@@ -1,6 +1,6 @@
-import { UserRepository } from "@modules/user/repository/UserRepository";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
 import { hash } from "bcryptjs";
-import AppError from "@shared/errors/AppError";
+import AppError from "@/shared/errors/AppError";
 import { addLinksToEntityResponse, removeSensitivyContentFromUser } from "@utils/hateoasUtils";
 import { User } from "@prisma/client";
 

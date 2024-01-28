@@ -1,19 +1,18 @@
 import { Request, Response } from "express";
-import { ShowProductService } from "@/modules/products/services/ShowProductService";
-import { UpdateProductService } from "@/modules/products/services/UpdateProductService";
-import { UpdateProfileUserService } from "../services/UpadateProfileService";
+import { UpdateProfileUserService } from "@/modules/user/services/UpadateProfileService";
+import { ShowProfileUserService } from "@/modules/user/services/ShowProfileService";
 
 export class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.uid;
-    const showUser = new ShowProductService();
+    const uid = request.user.uid;
+    const showUser = new ShowProfileUserService();
 
-    const user = await showUser.execute(user_id);
+    const user = await showUser.execute({ uid });
     return response.json(user);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    
+
     const user_uid = request.user.uid;
     const { name, email, password, old_password } = request.body;
 

@@ -3,10 +3,10 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors'
 import cors from 'cors';
 import { errors } from 'celebrate';
-import routes from '../routes'
-import AppError from '../errors/AppError';
-import uploandsConfig from '@config/uploands';
-import Logger from '@utils/wisntonLogger';
+import routes from '@/shared/routes'
+import AppError from '@/shared/errors/AppError';
+import uploandsConfig from '@/config/uploands';
+import Logger from '@/utils/wisntonLogger';
 import swaggerUI from 'swagger-ui-express'
 import swaggerDoc from '@/swagger.json';
 

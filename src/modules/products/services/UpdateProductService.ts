@@ -1,5 +1,5 @@
-import AppError from "@shared/errors/AppError";
-import { ProductRepository } from "@modules/products/repositories/ProductRepository";
+import AppError from "@/shared/errors/AppError";
+import { ProductRepository } from "@/modules/products/repositories/ProductRepository";
 import { Product } from "@prisma/client";
 interface IRequest {
   uid: string;

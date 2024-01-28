@@ -1,6 +1,6 @@
 import Logger from "@/utils/wisntonLogger";
-import { UserRepository } from "@modules/user/repository/UserRepository";
-import { UserTokes } from "@modules/user/tokes/repository/UserTokensRepository";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
+import { UserTokes } from "@/modules/user/tokes/repository/UserTokensRepository";
 import { hash } from "bcryptjs";
 import { addHours, isAfter } from "date-fns";
 

@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
-import { UserRepository } from "@modules/user/repository/UserRepository";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
 import { addLinksToEntityList, addLinksToEntityResponse } from "@utils/hateoasUtils";
-import AppError from "@shared/errors/AppError";
+import AppError from "@/shared/errors/AppError";
 
 export class ListUsers {
   private domain = 'user'

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ListUsers } from "@modules/user/services/ListUserService";
-import { CreateUser } from "@modules/user/services/CreateUserService";
-import { DeleteUser } from "@modules/user/services/DeleteUserService";
+import { ListUsers } from "@/modules/user/services/ListUserService";
+import { CreateUser } from "@/modules/user/services/CreateUserService";
+import { DeleteUser } from "@/modules/user/services/DeleteUserService";
 
 export class UserController {
   public async index(request: Request, response: Response): Promise<Response>{
