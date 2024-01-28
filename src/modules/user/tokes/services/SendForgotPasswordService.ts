@@ -1,6 +1,6 @@
-import AppError from "@shared/errors/AppError";
-import { UserRepository } from "@modules/user/repository/UserRepository";
-import { UserTokes } from "@modules/user/tokes/repository/UserTokensRepository";
+import AppError from "@/shared/errors/AppError";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
+import { UserTokes } from "@/modules/user/tokes/repository/UserTokensRepository";
 import EtherealMail from "@/config/mail/EthereImail";
 import path from 'path'
 export class SendForgotPasswordService {

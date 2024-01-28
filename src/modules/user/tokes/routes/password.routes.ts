@@ -1,8 +1,7 @@
 import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
-import isAuthenticated from "@modules/session/middlewares/isAuthenticated";
-import { ForgotPasswordController } from "@modules/user/tokes/controller/ForgotPasswordController";
-import ResetPasswordController from "../controller/ResetPasswordController";
+import { ForgotPasswordController } from "@/modules/user/tokes/controller/ForgotPasswordController";
+import ResetPasswordController from "@/modules/user/tokes/controller/ResetPasswordController";
 
 const passwordRouter = Router();
 const forgotPasswordController = new ForgotPasswordController();

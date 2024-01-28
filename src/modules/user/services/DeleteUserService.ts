@@ -1,5 +1,5 @@
-import AppError from "@shared/errors/AppError";
-import { UserRepository } from "@modules/user/repository/UserRepository";
+import AppError from "@/shared/errors/AppError";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
 
 interface IRequest {
   uid: string

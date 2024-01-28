@@ -1,6 +1,6 @@
-import AppError from "@shared/errors/AppError";
-import { ProductRepository } from "@modules/products/repositories/ProductRepository";
-import { addLinksToEntityResponse } from "@utils/hateoasUtils";
+import AppError from "@/shared/errors/AppError";
+import { ProductRepository } from "@/modules/products/repositories/ProductRepository";
+import { addLinksToEntityResponse } from "@/utils/hateoasUtils";
 import { Product } from "@prisma/client";
 interface IRequest {
   name: string;

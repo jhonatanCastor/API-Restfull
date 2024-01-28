@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import handlebarsMailTemplate from './HandlebarsMailTamplate';
+import handlebarsMailTemplate from '@/config/mail/HandlebarsMailTamplate';
 
 interface ITemplateVariable {
   [key: string]: string | number;

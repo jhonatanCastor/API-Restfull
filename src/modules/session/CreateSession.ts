@@ -1,9 +1,9 @@
-import { UserRepository } from "@modules/user/repository/UserRepository";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
 import { User } from "@prisma/client";
-import AppError from "@shared/errors/AppError";
+import AppError from "@/shared/errors/AppError";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import authConfig from '@config/auth'
+import authConfig from '@/config/auth'
 
 interface IRequest {
   email: string;
