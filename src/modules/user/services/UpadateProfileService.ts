@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
-import { UserRepository } from "@modules/user/repository/UserRepository";
-import { addLinksToEntityResponse } from "@utils/hateoasUtils";
-import AppError from "@shared/errors/AppError";
+import { UserRepository } from "@/modules/user/repository/UserRepository";
+import { addLinksToEntityResponse } from "@/utils/hateoasUtils";
+import AppError from "@/shared/errors/AppError";
 import { compare, hash } from "bcryptjs";
 
 interface IRequest {

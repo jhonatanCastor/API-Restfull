@@ -4,15 +4,15 @@ import { addLinksToEntityResponse } from "@utils/hateoasUtils";
 import AppError from "@shared/errors/AppError";
 
 interface IRequest {
-  user_uid: string
+  uid: string
 }
 
 export class ShowProfileUserService {
   private domain = 'user'
-  public async execute({ user_uid }: IRequest): Promise<User> {
+  public async execute({ uid }: IRequest): Promise<User> {
     const userRepository = new UserRepository();
 
-    const users = await userRepository.findByUid(user_uid);
+    const users = await userRepository.findByUid(uid);
 
     if (!users) {
       throw new AppError('User not found');
