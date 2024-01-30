@@ -25,7 +25,7 @@ export class OrdersRepository {
     });
     return order
   }
-
+// fix this function more late
   public async create({ customer, products }: IRquest): Promise<Orders> {
     const order = await prisma.orders.create({
       customer,
