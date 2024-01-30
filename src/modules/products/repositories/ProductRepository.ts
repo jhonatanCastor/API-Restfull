@@ -8,6 +8,9 @@ interface IRequest {
   price: number;
   quantity: number;
 }
+interface IFindProducts {
+  uid: string;
+}
 @Injectable()
 export class ProductRepository {
 
@@ -61,6 +64,20 @@ export class ProductRepository {
       }
     })
     return product
+  }
+
+  async findAllByUids(products: IFindProducts[]) {
+    const productIds = products.map(product => product.uid);
+
+    const existsProducts = await prisma.product.findMany({
+      where: {
+        uid: {
+          in: productIds
+        }
+      }
+    });
+
+    return existsProducts;
   }
 
   async delete(uid: string) {
