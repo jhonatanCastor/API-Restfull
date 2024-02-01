@@ -58,6 +58,8 @@ model Product {
   quantity Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+
+  orders Orders_Products[]
 }
 
 model Customers {
@@ -66,9 +68,34 @@ model Customers {
   name String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  
+
+  orders Orders[]
 }
 
+model Orders {
+  uid String @id @unique @default(uuid())
+  code String @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
+  customer Customers @relation(fields: [customer_uid], references: [uid], onUpdate: NoAction)
+  customer_uid String
+
+  products Orders_Products[]
+}
+
+model Orders_Products {
+  uid String @id @unique @default(uuid())
+  price Int
+  quantity Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  product Product @relation(fields: [product_uid], references: [uid], onUpdate: NoAction)
+  product_uid String 
+  
+  order Orders @relation(fields: [orders_uid], references: [uid], onUpdate: NoAction)
+  orders_uid String 
+}
 
 
