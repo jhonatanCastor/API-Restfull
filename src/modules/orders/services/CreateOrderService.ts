@@ -1,4 +1,4 @@
-import { Orders } from "@prisma/client";
+import { Orders, Product } from "@prisma/client";
 import { OrdersRepository } from "@/modules/orders/repository/OrdersRepository";
 import AppError from "@/shared/errors/AppError";
 import { addLinksToEntityResponse } from "@/utils/hateoasUtils";
@@ -10,14 +10,14 @@ interface IProduct {
   quantity: number;
 }
 
-interface IRquest {
+interface IRequest {
   customer_uid: string;
   products: IProduct[];
 }
 
 export class CreateOrderService {
   private domain = 'orders'
-  public async execute({ customer_uid, products }: IRquest): Promise<Orders> {
+  public async execute({ customer_uid, products }: IRequest): Promise<Orders> {
     const orderRepository = new OrdersRepository();
     const customerRepository = new CustomersRepository();
     const productRepository = new ProductRepository();
@@ -55,15 +55,29 @@ export class CreateOrderService {
     }
 
     const serializedProducts = products.map(product => ({
-      product_id: product.uid,
+      uid: product.uid,
       quantity: product.quantity,
-      price: productExists.filter(p => p.uid === product.uid)[0].price
+      price: productExists.find(p => p.uid === product.uid)?.price || 0
     }));
 
-    const order = await orderRepository.create({
+
+    const order = await orderRepository.createOrder({
       customer: customerExists,
       products: serializedProducts,
-    })
+    });
+
+    const { products: order_products } = order ?? {}
+
+    const updateProductsQuantity = order_products?.map(product => ({
+      uid: product.product_uid,
+      quantity:
+        productExists.filter(p => p.uid === product.product_uid)[0].quantity - product.quantity,
+    }));
+
+    if (!updateProductsQuantity) throw new AppError('')
+
+    await productRepository.save(updateProductsQuantity as Product[]);
+
 
     return addLinksToEntityResponse(order, this.domain);
   }
