@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors'
 import cors from 'cors';
@@ -9,7 +10,6 @@ import uploandsConfig from '@/config/uploands';
 import Logger from '@/utils/wisntonLogger';
 import swaggerUI from 'swagger-ui-express'
 import swaggerDoc from '@/swagger.json';
-
 
 const app = express();
 
