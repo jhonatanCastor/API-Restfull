@@ -1,5 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { Prisma, Product } from "@prisma/client";
+import { Product } from "@prisma/client";
 import AppError from "@/shared/errors/AppError";
 import prisma from "@/utils/PrismaClient";
 interface IRequest {
@@ -11,7 +10,6 @@ interface IRequest {
 interface IFindProducts {
   uid: string;
 }
-@Injectable()
 export class ProductRepository {
 
   async findByProduct(name: string) {
@@ -37,19 +35,25 @@ export class ProductRepository {
     return newProduct;
   }
 
-  async save(product: Prisma.ProductUpdateInput): Promise<Product | undefined> {
-    const updatedProduct = await prisma.product.update({
-      where: {
-        uid: (product.uid as string)
-      },
-      data: product,
-    });
-
-    if (!updatedProduct) {
-      throw new AppError("Error or updated the product");
+  async save(products: Product[]): Promise<Product[]> {
+    const updatedProducts: Product[] = [];
+  
+    for (const product of products) {
+      const updatedProduct = await prisma.product.update({
+        where: {
+          uid: product.uid
+        },
+        data: product,
+      });
+  
+      if (!updatedProduct) {
+        throw new AppError(`Error updating product with UID ${product.uid}`);
+      }
+  
+      updatedProducts.push(updatedProduct);
     }
-
-    return updatedProduct;
+  
+    return updatedProducts;
   }
 
   async find() {
@@ -67,12 +71,16 @@ export class ProductRepository {
   }
 
   async findAllByUids(products: IFindProducts[]) {
-    const productIds = products.map(product => product.uid);
+    const validProductIds = products.filter(product => product.uid !== undefined).map(product => product.uid);
+
+    if (validProductIds.length === 0) {
+      return [];
+    }
 
     const existsProducts = await prisma.product.findMany({
       where: {
         uid: {
-          in: productIds
+          in: validProductIds
         }
       }
     });
