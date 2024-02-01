@@ -68,19 +68,20 @@ model Customers {
   name String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  
+
   orders Orders[]
 }
 
 model Orders {
   uid String @id @unique @default(uuid())
+  code String @default(uuid())
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  author Customers @relation(fields: [customer_uid], references: [uid], onDelete: Cascade)
-  customer_uid String  
+  customer Customers @relation(fields: [customer_uid], references: [uid], onUpdate: NoAction)
+  customer_uid String
 
-  orders Orders_Products[]
+  products Orders_Products[]
 }
 
 model Orders_Products {
@@ -90,11 +91,11 @@ model Orders_Products {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  author Orders @relation(fields: [orders_uid], references: [uid], onDelete: Cascade)
-  orders_uid String
-
-  product Product @relation(fields: [product_uid], references: [uid], onDelete: Cascade)
-  product_uid String
+  product Product @relation(fields: [product_uid], references: [uid], onUpdate: NoAction)
+  product_uid String 
+  
+  order Orders @relation(fields: [orders_uid], references: [uid], onUpdate: NoAction)
+  orders_uid String 
 }
 
 
