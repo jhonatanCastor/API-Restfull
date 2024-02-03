@@ -1,4 +1,3 @@
-import { Injectable } from "@nestjs/common";
 import { Prisma, User } from "@prisma/client";
 import AppError from "@/shared/errors/AppError";
 import prisma from "@/utils/PrismaClient";
@@ -11,7 +10,6 @@ interface IRequest {
   avatar?: string;
 }
 
-@Injectable()
 export class UserRepository {
 
   async create(data: IRequest) {

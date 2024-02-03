@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Prisma, Product } from "@prisma/client";
 import AppError from "@/shared/errors/AppError";
 import prisma from "@/utils/PrismaClient";
 interface IRequest {
@@ -54,6 +54,21 @@ export class ProductRepository {
     }
   
     return updatedProducts;
+  }
+
+  async saveProduct(product: Prisma.ProductUpdateInput): Promise<Product | undefined> {
+    const saveProduct = await prisma.product.update({
+      where: { 
+        uid: (product.uid as string )
+      }, 
+      data: product,
+    })
+
+    if(!saveProduct) {
+      throw new AppError("save product failed")
+    }
+    
+    return saveProduct;
   }
 
   async find() {
