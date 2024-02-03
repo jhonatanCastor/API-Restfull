@@ -10,11 +10,13 @@ import uploandsConfig from '@/config/uploands';
 import Logger from '@/utils/wisntonLogger';
 import swaggerUI from 'swagger-ui-express'
 import swaggerDoc from '@/swagger.json';
+import rateLimiter from '@/shared/http/middlewares/rateLimeter';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(rateLimiter);
 app.use('/files', express.static(uploandsConfig.directory));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
