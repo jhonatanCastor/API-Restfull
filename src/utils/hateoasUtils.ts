@@ -16,4 +16,4 @@ export const addLinksToEntityList = (entities: any[], domain: string) => {
   return entities.map(entity => addLinksToEntityResponse(entity, domain));
 }
 
-export const removeSensitivyContentFromUser = ({ password, ...user }: User): Partial<User> => user
+export const removeSensitivyContentFromUser = ({ password, ...user }: User): Partial<User> => user;

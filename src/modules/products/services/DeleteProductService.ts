@@ -3,7 +3,7 @@ import { ProductRepository } from "@/modules/products/repositories/ProductReposi
 import RedisCache from "@/shared/cache/RedisCache";
 interface IRequest {
   uid: string
-}
+};
 export class DeleteProductService {
   public async execute({ uid }: IRequest): Promise<void> {
     const productsRepository = new ProductRepository();
@@ -16,7 +16,6 @@ export class DeleteProductService {
     };
 
     await redisCache.invalidate(`${process.env.PRODUCT_KEY}`);
-
     await productsRepository.delete(product.uid);
-  }
-}
+  };
+};

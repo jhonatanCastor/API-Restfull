@@ -9,5 +9,5 @@ export class DeleteOrderService {
 
     if(!orderExist)  throw new AppError("This order does not exist");
     await orderRepository.delete(orderExist.uid);
-  }
-}
+  };
+};

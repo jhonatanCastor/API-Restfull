@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
-import 'express-async-errors'
+import 'express-async-errors';
 import cors from 'cors';
 import { errors } from 'celebrate';
-import routes from '@/shared/routes'
+import routes from '@/shared/routes';
 import AppError from '@/shared/errors/AppError';
 import uploandsConfig from '@/config/uploands';
 import Logger from '@/utils/wisntonLogger';
@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
 app.use('/files', express.static(uploandsConfig.directory));
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use(routes);
 
@@ -29,12 +29,12 @@ app.use((error: Error, request: Request, response: Response, next: NextFunction)
     return response.status(error.statusCode).json({
       status: "error",
       message: error.message
-    })
+    });
   };
   return response.status(500).json({
     status: 'error',
     message: `Internal server error ${error}`
-  })
+  });
 });
 
 app.listen(3333, () => {

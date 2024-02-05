@@ -3,12 +3,12 @@ import fs from 'fs';
 
 interface ITemplateVariable {
   [key: string]: string | number;
-}
+};
 
 interface IParseMailTemplate {
   file: string;
   variables: ITemplateVariable;
-}
+};
 
 export default class handlebarsMailTemplate  {
   public async parse({file, variables}:IParseMailTemplate): Promise<string> {
@@ -20,5 +20,5 @@ export default class handlebarsMailTemplate  {
     const parseTemplate = handlebars.compile(templateFileContent);
 
     return parseTemplate(variables);
-  }
-}
+  };
+};

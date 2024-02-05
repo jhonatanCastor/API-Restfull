@@ -3,14 +3,12 @@ import { hash } from "bcryptjs";
 import AppError from "@/shared/errors/AppError";
 import { addLinksToEntityResponse, removeSensitivyContentFromUser } from "@utils/hateoasUtils";
 import { User } from "@prisma/client";
-
 interface IRequest {
   email: string;
   name: string;
   password: string;
   avatar?: string;
-}
-
+};
 export class CreateUser {
   private domain = 'user'
   async execute({ name, email, password, avatar }: IRequest) {
@@ -19,7 +17,7 @@ export class CreateUser {
 
     if (userExist) {
       throw new AppError("E-mail already in use", 400);
-    }
+    };
 
     const hashedPassword = await hash(password, 8);
 
@@ -29,8 +27,7 @@ export class CreateUser {
       password: hashedPassword,
       avatar,
     });
-
     await userRepository.save(user);
-    return addLinksToEntityResponse(removeSensitivyContentFromUser(user as User), this.domain)
-  }
-}
+    return addLinksToEntityResponse(removeSensitivyContentFromUser(user as User), this.domain);
+  };
+};

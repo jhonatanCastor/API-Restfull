@@ -9,7 +9,7 @@ interface IRequest {
   name: string;
 }
 
-export class UpdateCustomersservice {
+export class UpdateCustomersService {
   private domain = 'customers'
 
   public async execute(uid: string, data: IRequest): Promise<Customers | undefined> {

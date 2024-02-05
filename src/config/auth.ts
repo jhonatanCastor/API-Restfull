@@ -3,4 +3,4 @@ export default {
     secret: process.env.SECRET, 
     expiryTime: process.env.EXPIRYTIME
   }
-}
+};

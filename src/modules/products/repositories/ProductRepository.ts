@@ -6,10 +6,10 @@ interface IRequest {
   name: string;
   price: number;
   quantity: number;
-}
+};
 interface IFindProducts {
   uid: string;
-}
+};
 export class ProductRepository {
 
   async findByProduct(name: string) {
@@ -18,8 +18,8 @@ export class ProductRepository {
         name: name
       }
     });
-    return product
-  }
+    return product;
+  };
 
   async createProduct(data: IRequest) {
     const newProduct = await prisma.product.create({
@@ -33,7 +33,7 @@ export class ProductRepository {
       throw new AppError('Please by not')
     }
     return newProduct;
-  }
+  };
 
   async save(products: Product[]): Promise<Product[]> {
     const updatedProducts: Product[] = [];
@@ -52,9 +52,8 @@ export class ProductRepository {
   
       updatedProducts.push(updatedProduct);
     }
-  
     return updatedProducts;
-  }
+  };
 
   async saveProduct(product: Prisma.ProductUpdateInput): Promise<Product | undefined> {
     const saveProduct = await prisma.product.update({
@@ -62,19 +61,18 @@ export class ProductRepository {
         uid: (product.uid as string )
       }, 
       data: product,
-    })
+    });
 
     if(!saveProduct) {
       throw new AppError("save product failed")
-    }
-    
+    };
     return saveProduct;
-  }
+  };
 
   async find() {
     const products = await prisma.product.findMany();
-    return products
-  }
+    return products;
+  };
 
   async findByUid(uid: string) {
     const product = await prisma.product.findUnique({
@@ -82,15 +80,15 @@ export class ProductRepository {
         uid: uid
       }
     })
-    return product
-  }
+    return product;
+  };
 
   async findAllByUids(products: IFindProducts[]) {
     const validProductIds = products.filter(product => product.uid !== undefined).map(product => product.uid);
 
     if (validProductIds.length === 0) {
       return [];
-    }
+    };
 
     const existsProducts = await prisma.product.findMany({
       where: {
@@ -99,16 +97,14 @@ export class ProductRepository {
         }
       }
     });
-
     return existsProducts;
-  }
+  };
 
   async delete(uid: string) {
     await prisma.product.delete({
       where: {
         uid: uid
       }
-    })
-  }
-
-}
+    });
+  };
+};

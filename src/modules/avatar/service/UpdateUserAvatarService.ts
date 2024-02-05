@@ -1,14 +1,14 @@
 import AppError from "@/shared/errors/AppError";
 import { UserRepository } from "@/modules/user/repository/UserRepository";
 import path from "path";
-import uploadConfig from '@config/uploands'
+import uploadConfig from '@config/uploands';
 import fs from "fs";
 import { User } from "@prisma/client";
 
 interface IRequest {
   user_uid: string;
   avatarFileName: string;
-}
+};
 
 export class UpdateUserAvatarService {
   async execute({ user_uid, avatarFileName }: IRequest): Promise<User> {
@@ -28,12 +28,12 @@ export class UpdateUserAvatarService {
       if (userAvatarFileExists) {
         await fs.promises.unlink(userAvatarFilePath);
       }
-    }
+    };
 
     user.avatar = avatarFileName;
 
     await userRepository.save(user);
 
     return user;
-  }
-}
+  };
+};

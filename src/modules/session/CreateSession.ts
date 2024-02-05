@@ -8,12 +8,12 @@ import authConfig from '@/config/auth'
 interface IRequest {
   email: string;
   password: string;
-}
+};
 
 interface IResponse {
   user: User;
   token: string;
-}
+};
 
 export class CreateSession {
   async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -31,15 +31,15 @@ export class CreateSession {
       throw new AppError("Incorrect email or password", 401);
     }
 
-    const token = sign({}, authConfig.jwt.secret, {
+    const token = sign({}, authConfig.jwt.secret as string, {
       subject: user.uid,
       expiresIn: authConfig.jwt.expiryTime,
-    })
+    });
 
     return {
       user,
       token
     };
 
-  }
-}
+  };
+};

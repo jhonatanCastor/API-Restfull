@@ -9,8 +9,8 @@ export class DeleteCustomersService {
 
     if(!customersExist){
       throw new AppError("Customer does not exist!");
-    }
+    };
     
     await customersRepository.delete(uid);
-   }
-}
+   };
+};

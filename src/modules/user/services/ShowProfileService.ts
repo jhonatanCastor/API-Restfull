@@ -5,7 +5,7 @@ import AppError from "@shared/errors/AppError";
 
 interface IRequest {
   uid: string
-}
+};
 
 export class ShowProfileUserService {
   private domain = 'user'
@@ -16,11 +16,10 @@ export class ShowProfileUserService {
 
     if (!users) {
       throw new AppError('User not found');
-    }
-
+    };
     const { password, ...userWithoutPassword } = users;
 
     return addLinksToEntityResponse(userWithoutPassword, this.domain);
-  }
-}
+  };
+};
 

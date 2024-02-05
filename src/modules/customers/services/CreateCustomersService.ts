@@ -6,7 +6,7 @@ import AppError from "@/shared/errors/AppError";
 interface IRequest {
   email: string;
   name: string;
-}
+};
 
 export class CreateCustomersService {
   private domain = 'customers'
@@ -16,14 +16,14 @@ export class CreateCustomersService {
 
     if(data.email === '') {
       throw new AppError('Email  is required');
-    }
+    };
 
     if(data.name === '') {
       throw new AppError('Name is required');
-    }
+    };
 
     const customers = await customersRepository.create(data);
 
     return addLinksToEntityResponse(customers, this.domain);
-  }
-}
+  };
+};

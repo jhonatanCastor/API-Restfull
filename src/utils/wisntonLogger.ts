@@ -50,4 +50,4 @@ const Logger = winston.createLogger({
   transports
 });
 
-export default Logger
+export default Logger;
