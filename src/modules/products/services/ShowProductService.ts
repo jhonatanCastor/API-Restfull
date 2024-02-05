@@ -11,8 +11,8 @@ export class ShowProductService {
 
     if (!product) {
       throw new AppError("This user does not have any product");
-    }
+    };
     
     return addLinksToEntityResponse(product, this.domain);
-  }
-}
+  };
+};

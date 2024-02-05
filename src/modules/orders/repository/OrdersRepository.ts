@@ -1,30 +1,27 @@
 import prisma from "@/utils/PrismaClient";
 import { Customers, Orders } from "@prisma/client";
-
 interface IProduct {
   uid?: string;
   price: number;
   quantity: number;
-}
-
+};
 interface IRequest {
   customer: Customers;
   products: IProduct[];
-}
-
+};
 export class OrdersRepository {
 
   public async find() {
     const orders = await prisma.orders.findMany();
     return orders;
-  }
+  };
 
   public async findByUid(uid: string) {
     const order = await prisma.orders.findUnique({
       where: { uid }
     });
-    return order
-  }
+    return order;
+  };
 
   public async createOrder({ customer, products }: IRequest) {
     const order = await prisma.orders.create({
@@ -51,9 +48,8 @@ export class OrdersRepository {
       include: {
         products: true
       }
-    })
-    // return order;
-  }
+    });
+  };
 
   public async update(uid: string, data: IRequest): Promise<Orders> {
     const order = await prisma.orders.update({
@@ -77,7 +73,7 @@ export class OrdersRepository {
       }
     });
     return order;
-  }
+  };
 
   public async save(uid: string, data: IRequest): Promise<Orders> {
     const order = await prisma.orders.upsert({
@@ -116,14 +112,13 @@ export class OrdersRepository {
       }
     });
     return order;
-  }
+  };
 
   public async delete(uid: string): Promise<void> {
     await prisma.orders.delete({
       where: {
         uid
       }
-    })
-  }
-
-}
+    });
+  };
+};

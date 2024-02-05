@@ -16,8 +16,8 @@ export class ListProductService {
       products = await productsRepository.find();
 
       await redisCache.save(`${process.env.PRODUCT_KEY}`,  products);
-    }
+    };
 
     return addLinksToEntityList(products, this.domain);
-  }
-}
+  };
+};
