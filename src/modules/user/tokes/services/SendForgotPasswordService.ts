@@ -12,12 +12,12 @@ export class SendForgotPasswordService {
     const user = await usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('User does not exists.', 404)
+      throw new AppError('User does not exists.', 404);
     }
 
     const token = await userTokenRepository.generate(user.uid as string);
 
-    const forgotPasswordTemplate = path.resolve(__dirname, '..', '..', 'views', 'forgot_password.hbs')
+    const forgotPasswordTemplate = path.resolve(__dirname, '..', '..', 'views', 'forgot_password.hbs');
 
     await EtherealMail.sendMail({
       to: {
@@ -33,5 +33,5 @@ export class SendForgotPasswordService {
         },
       },
     });
-  }
-}
+  };
+};

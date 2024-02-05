@@ -6,7 +6,6 @@ import Joi from "joi";
 
 const customerRouter = Router();
 const customerController = new CustomerController();
-
 customerRouter.use(isAuthenticated);
 
 customerRouter.get('/', customerController.index);

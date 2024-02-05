@@ -3,12 +3,10 @@ import { UserRepository } from "@/modules/user/repository/UserRepository";
 import { UserTokes } from "@/modules/user/tokes/repository/UserTokensRepository";
 import { hash } from "bcryptjs";
 import { addHours, isAfter } from "date-fns";
-
 interface IRequest {
   token: string;
   password: string;
-}
-
+};
 export class ResetPasswordService {
   public async execute( { token, password }: IRequest): Promise<void> {
     const userRepository = new UserRepository();
@@ -39,5 +37,5 @@ export class ResetPasswordService {
    Logger.info(user.password);
 
    await userRepository.save(user);
-  }
-}
+  };
+};

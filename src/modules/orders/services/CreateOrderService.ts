@@ -4,17 +4,14 @@ import AppError from "@/shared/errors/AppError";
 import { addLinksToEntityResponse } from "@/utils/hateoasUtils";
 import { CustomersRepository } from "@/modules/customers/repositories/CustomersRepository";
 import { ProductRepository } from "@/modules/products/repositories/ProductRepository";
-
 interface IProduct {
   uid: string;
   quantity: number;
-}
-
+};
 interface IRequest {
   customer_uid: string;
   products: IProduct[];
-}
-
+};
 export class CreateOrderService {
   private domain = 'orders'
   public async execute({ customer_uid, products }: IRequest): Promise<Orders> {
@@ -32,7 +29,7 @@ export class CreateOrderService {
 
     if (!productExists.length) {
       throw new AppError('Could not find any products with the given uid')
-    }
+    };
 
     const existsProduct = productExists.map((product) => product.uid);
 
@@ -42,7 +39,7 @@ export class CreateOrderService {
 
     if (checkInexistentProducts.length) {
       throw new AppError(`Could not find any products ${checkInexistentProducts[0].uid}.`)
-    }
+    };
 
     const quantityAvailable = products.filter(
       product => productExists.filter(
@@ -52,7 +49,7 @@ export class CreateOrderService {
 
     if (quantityAvailable.length) {
       throw new AppError(`The quantity ${quantityAvailable[0].quantity} is not available for ${quantityAvailable[0].uid}.`)
-    }
+    };
 
     const serializedProducts = products.map(product => ({
       uid: product.uid,
@@ -66,7 +63,7 @@ export class CreateOrderService {
       products: serializedProducts,
     });
 
-    const { products: order_products } = order ?? {}
+    const { products: order_products } = order ?? {};
 
     const updateProductsQuantity = order_products?.map(product => ({
       uid: product.product_uid,
@@ -80,5 +77,5 @@ export class CreateOrderService {
 
 
     return addLinksToEntityResponse(order, this.domain);
-  }
-}
+  };
+};

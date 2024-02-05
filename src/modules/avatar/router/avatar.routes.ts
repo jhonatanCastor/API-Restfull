@@ -6,11 +6,11 @@ import isAuthenticated from "@/modules/session/middlewares/isAuthenticated";
 
 const userAvatar = Router();
 const usersAvatarController = new UserAvatarController();
+userAvatar.use(isAuthenticated);
 
-const upload = multer(uploandsConfig)
+const upload = multer(uploandsConfig);
 
 userAvatar.patch('/',
-  isAuthenticated,
   upload.single('avatar'),
   usersAvatarController.update,
 )

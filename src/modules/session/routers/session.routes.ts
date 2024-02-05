@@ -12,6 +12,6 @@ sessionRouter.post('/',
       password: Joi.string().required()
     }
   }),
-  createController.createSession)
+  createController.createSession);
 
 export default sessionRouter;

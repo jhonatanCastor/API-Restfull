@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { CreateSession } from "@/modules/session/CreateSession";
-
 export default class SessionController {
   public async createSession(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
@@ -12,5 +11,5 @@ export default class SessionController {
     });
 
     return response.json(create)
-  }
-}
+  };
+};

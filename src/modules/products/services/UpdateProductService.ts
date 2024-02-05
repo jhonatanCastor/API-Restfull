@@ -7,7 +7,7 @@ interface IRequest {
   name: string;
   price: number;
   quantity: number;
-}
+};
 export class UpdateProductService {
   public async execute(data: IRequest): Promise<Product> {
     const values = { ...data }
@@ -18,12 +18,12 @@ export class UpdateProductService {
 
     if (!product) {
       throw new AppError("This user does not have any product");
-    }
+    };
 
     const productExist = await productsRepository.findByProduct(values.name);
     if (productExist && productExist.name !== data.name) {
       throw new AppError('A product with this name already exists');
-    }
+    };
 
     product.name = values.name;
     product.price = values.price;
@@ -31,8 +31,8 @@ export class UpdateProductService {
 
     await redisCache.invalidate(`${process.env.PRODUCT_KEY}`);
 
-    await productsRepository.saveProduct(product)
+    await productsRepository.saveProduct(product);
 
     return product;
-  }
-}
+  };
+};
