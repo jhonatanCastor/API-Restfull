@@ -6,7 +6,7 @@ interface IMailConfig {
       name: string;
     }
   }
-}
+};
 
 export default {
   driver: process.env.MAIL_DRIVER || 'ethereal',
@@ -16,4 +16,4 @@ export default {
       name: 'Castor Tecnologia',
     }
   }
-} as IMailConfig
+} as IMailConfig;
