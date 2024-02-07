@@ -41,6 +41,7 @@
     "@nestjs/common": "^10.2.7",
     "@nestjs/graphql": "^12.0.9",
     "@prisma/client": "5.4.2",
+    "aws-sdk": "^2.1552.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
     "class-transformer": "^0.5.1",
