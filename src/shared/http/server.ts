@@ -41,4 +41,4 @@ app.use((error: Error, request: Request, response: Response, next: NextFunction)
 app.listen(3333, () => {
   Logger.info(`Server running on port ${process.env.PORT}`);
   Logger.info(`Swagger running on port http://localhost:${process.env.PORT}/api-docs/`);
-});
+}); 

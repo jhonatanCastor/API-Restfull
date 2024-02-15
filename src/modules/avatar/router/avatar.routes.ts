@@ -8,11 +8,11 @@ const userAvatar = Router();
 const usersAvatarController = new UserAvatarController();
 userAvatar.use(isAuthenticated);
 
-const upload = multer(uploandsConfig);
+const upload = multer(uploandsConfig.multer);
 
 userAvatar.patch('/',
   upload.single('avatar'),
-  usersAvatarController.update,
+  usersAvatarController.update, 
 )
 
 export default userAvatar;

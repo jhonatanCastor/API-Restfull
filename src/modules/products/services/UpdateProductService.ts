@@ -1,7 +1,7 @@
 import AppError from "@/shared/errors/AppError";
 import { ProductRepository } from "@/modules/products/repositories/ProductRepository";
 import { Product } from "@prisma/client";
-import RedisCache from "@/shared/cache/RedisCache";
+import redisCache from "@/shared/cache/RedisCache";
 interface IRequest {
   uid: string;
   name: string;
@@ -12,7 +12,6 @@ export class UpdateProductService {
   public async execute(data: IRequest): Promise<Product> {
     const values = { ...data }
     const productsRepository = new ProductRepository();
-    const redisCache = new  RedisCache();
 
     const product = await productsRepository.findByUid(values.uid);
 

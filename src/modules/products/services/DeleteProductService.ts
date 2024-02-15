@@ -1,13 +1,12 @@
 import AppError from "@/shared/errors/AppError";
 import { ProductRepository } from "@/modules/products/repositories/ProductRepository";
-import RedisCache from "@/shared/cache/RedisCache";
+import redisCache from "@/shared/cache/RedisCache";
 interface IRequest {
   uid: string
 };
 export class DeleteProductService {
   public async execute({ uid }: IRequest): Promise<void> {
     const productsRepository = new ProductRepository();
-    const redisCache = new  RedisCache();
 
     const product = await productsRepository.findByUid(uid);
 
