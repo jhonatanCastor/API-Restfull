@@ -1,9 +1,9 @@
 import AppError from "@/shared/errors/AppError";
 import { UserRepository } from "@/modules/user/repository/UserRepository";
-import path from "path";
-import uploadConfig from '@config/uploands';
-import fs from "fs";
 import { User } from "@prisma/client";
+import DiskStorageProvider from "@/shared/providers/StoregeProvider/DiskStoregeProvider";
+import uploadConfig from '@/config/uploands';
+import S3StorageProvider from "@/shared/providers/StoregeProvider/S3StorageProvider";
 
 interface IRequest {
   user_uid: string;
@@ -13,6 +13,8 @@ interface IRequest {
 export class UpdateUserAvatarService {
   async execute({ user_uid, avatarFileName }: IRequest): Promise<User> {
     const userRepository = new UserRepository();
+    const s3StorageProvider = new S3StorageProvider();
+    const storageProvider = new DiskStorageProvider();
 
     const user = await userRepository.findByUid(user_uid);
 
@@ -20,20 +22,33 @@ export class UpdateUserAvatarService {
       throw new AppError("Only authenticated users can change avatar.", 401);
     };
 
-    if (user.avatar) {
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
+    if (uploadConfig.driver === 's3') {
 
-      const userAvatarFileExists = await fs.promises.access(userAvatarFilePath).then(() => true).catch(() => false);
-
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
+      if (user.avatar) {
+        await s3StorageProvider.deleteFile(user.avatar);
       }
-    };
 
-    user.avatar = avatarFileName;
+      const fileName = await s3StorageProvider.saveFile(avatarFileName);
 
-    await userRepository.save(user);
+      user.avatar = fileName;
 
-    return user;
+      await userRepository.save(user);
+
+      return user;
+
+    } else {
+
+      if (user.avatar) {
+        await storageProvider.deleteFile(user.avatar);
+      };
+
+      const fileName = await storageProvider.saveFile(avatarFileName);
+
+      user.avatar = fileName;
+
+      await userRepository.save(user);
+
+      return user;
+    }
   };
 };
